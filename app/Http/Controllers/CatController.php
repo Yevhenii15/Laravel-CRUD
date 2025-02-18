@@ -12,7 +12,10 @@ class CatController extends Controller
      */
     public function index()
     {
-        //
+        $cats = Cat::latest()->paginate(5);
+
+        return view('cats.index',compact('cats'))
+            ->with(request()->input('page'));
     }
 
     /**
@@ -20,7 +23,7 @@ class CatController extends Controller
      */
     public function create()
     {
-        //
+        return view('cats.create');  
     }
 
     /**
@@ -28,7 +31,15 @@ class CatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'age' => 'required',
+        ]);
+
+        Cat::create($request->all());
+
+        return redirect()->route('cats.index')
+                        ->with('success','Product created successfully.');
     }
 
     /**
@@ -36,7 +47,7 @@ class CatController extends Controller
      */
     public function show(Cat $cat)
     {
-        //
+        return view('cats.show',compact('cat'));
     }
 
     /**
