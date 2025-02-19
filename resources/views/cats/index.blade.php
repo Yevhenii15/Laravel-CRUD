@@ -22,14 +22,14 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Details</th>
+        <th>Age</th>
         <th width="280px">Action</th>
     </tr>
     @foreach ($cats as $cat)
     <tr>
         <td>{{ $cat->id }}</td>
         <td>{{ $cat->name }}</td>
-        <td>{{ $cat->detail }}</td>
+        <td>{{ $cat->age }}</td>
         <td>
             <form action="{{ route('cats.destroy',$cat->id) }}" method="POST">
                 <a class="btn btn-info" href="{{ route('cats.show',$cat->id) }}">Show</a>

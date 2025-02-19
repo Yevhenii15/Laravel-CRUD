@@ -39,7 +39,7 @@ class CatController extends Controller
         Cat::create($request->all());
 
         return redirect()->route('cats.index')
-                        ->with('success','Product created successfully.');
+                        ->with('success','Cat created successfully.');
     }
 
     /**
@@ -55,7 +55,7 @@ class CatController extends Controller
      */
     public function edit(Cat $cat)
     {
-        //
+        return view('cats.edit',compact('cat'));
     }
 
     /**
@@ -63,14 +63,23 @@ class CatController extends Controller
      */
     public function update(Request $request, Cat $cat)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required',
+            'age' => 'required',
+        ]);
+
+        $cat->update($request->all());
+
+        return redirect()->route('cats.index')
+                        ->with('success','Cat updated successfully');    }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Cat $cat)
     {
-        //
-    }
+        $cat->delete();
+
+        return redirect()->route('cats.index')
+                        ->with('success','Cat deleted successfully');    }
 }
